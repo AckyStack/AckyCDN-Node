@@ -1,0 +1,13 @@
+version: '3'
+
+tasks:
+  update:
+    cmds:
+      - 'go mod tidy'
+      - 'go clean all'
+      - 'go list -u -m all'
+      - 'go get -u ./...'
+
+  build_prod:
+    cmds:
+      - goreleaser release
