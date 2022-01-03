@@ -85,16 +85,13 @@ func ReverseProxyHandler(ctx *fiber.Ctx) error {
 	proxyReqEndTime := carbon.Now().TimestampWithMillisecond()
 	logging.LogReqUpstream(ctx, ftaconv.B2S(ctx.Request().URI().FullURI()), proxyReqStartTime, proxyReqEndTime)
 
-	ctx.Response().SetStatusCode(proxyResponse.StatusCode())
-	ctx.Response().Header.SetContentTypeBytes(proxyResponse.Header.ContentType())
-	if len(proxyResponse.Header.Peek(fiber.HeaderContentEncoding)) > 0 {
-		ctx.Response().Header.SetBytesV(fiber.HeaderContentEncoding, proxyResponse.Header.Peek(fiber.HeaderContentEncoding))
-	}
-	ctx.Response().SetBodyRaw(proxyResponse.Body())
-	logging.LogReqFinalize(ctx, false)
+	ctx.Response().Reset()
+	proxyResponse.CopyTo(ctx.Response())
+	//cache
 
-	defer fasthttp.ReleaseResponse(proxyResponse)
+	logging.LogReqFinalize(ctx, false)
 	defer releaseClient(client)
+	defer fasthttp.ReleaseResponse(proxyResponse)
 	return nil
 }
 
