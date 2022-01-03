@@ -115,11 +115,10 @@ type CacheConfig struct {
 	//  @Description: enable cache
 	CacheEnabled bool
 
-	//  CacheFileUrlSuffixes
-	//  @Description: the request file suffix that want to cache (using regex to match url)
-	CacheFileUrlSuffixes []string
-
 	//  CacheExpiration
 	//  @Description: cache expiration time, default unit second
 	CacheExpiration int
+
+	// static files
+	// /\.?(eot|otf|ttf|woff|woff2|html|htm|css|js|jsx|less|scss|ppt|odp|doc|docx|ebook|log|md|msg|odt|org|pages|pdf|rtf|rst|tex|txt|wpd|wps|mobi|epub|azw1|azw3|azw4|azw6|azw|cbr|cbz|aac|aiff|ape|au|flac|gsm|it|m3u|m4a|mid|mod|mp3|mpa|pls|ra|s3m|sid|wav|wma|xm|3g2|3gp|aaf|asf|avchd|avi|drc|flv|m2v|m4p|m4v|mkv|mng|mov|mp2|mp4|mpe|mpeg|mpg|mpv|mxf|nsv|ogg|ogv|ogm|qt|rm|rmvb|roq|srt|svi|vob|webm|wmv|yuv|3dm|3ds|max|bmp|dds|gif|jpg|jpeg|png|psd|xcf|tga|thm|tif|tiff|ai|eps|ps|svg|dwg|dxf|gpx|kml|kmz|webp|ods|xls|xlsx|csv|ics|vcf)$/
 }

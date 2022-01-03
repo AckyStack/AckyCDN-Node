@@ -30,25 +30,6 @@ func (z *CacheConfig) DecodeMsg(dc *msgp.Reader) (err error) {
 				err = msgp.WrapError(err, "CacheEnabled")
 				return
 			}
-		case "CacheFileUrlSuffixes":
-			var zb0002 uint32
-			zb0002, err = dc.ReadArrayHeader()
-			if err != nil {
-				err = msgp.WrapError(err, "CacheFileUrlSuffixes")
-				return
-			}
-			if cap(z.CacheFileUrlSuffixes) >= int(zb0002) {
-				z.CacheFileUrlSuffixes = (z.CacheFileUrlSuffixes)[:zb0002]
-			} else {
-				z.CacheFileUrlSuffixes = make([]string, zb0002)
-			}
-			for za0001 := range z.CacheFileUrlSuffixes {
-				z.CacheFileUrlSuffixes[za0001], err = dc.ReadString()
-				if err != nil {
-					err = msgp.WrapError(err, "CacheFileUrlSuffixes", za0001)
-					return
-				}
-			}
 		case "CacheExpiration":
 			z.CacheExpiration, err = dc.ReadInt()
 			if err != nil {
@@ -67,10 +48,10 @@ func (z *CacheConfig) DecodeMsg(dc *msgp.Reader) (err error) {
 }
 
 // EncodeMsg implements msgp.Encodable
-func (z *CacheConfig) EncodeMsg(en *msgp.Writer) (err error) {
-	// map header, size 3
+func (z CacheConfig) EncodeMsg(en *msgp.Writer) (err error) {
+	// map header, size 2
 	// write "CacheEnabled"
-	err = en.Append(0x83, 0xac, 0x43, 0x61, 0x63, 0x68, 0x65, 0x45, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x64)
+	err = en.Append(0x82, 0xac, 0x43, 0x61, 0x63, 0x68, 0x65, 0x45, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x64)
 	if err != nil {
 		return
 	}
@@ -78,23 +59,6 @@ func (z *CacheConfig) EncodeMsg(en *msgp.Writer) (err error) {
 	if err != nil {
 		err = msgp.WrapError(err, "CacheEnabled")
 		return
-	}
-	// write "CacheFileUrlSuffixes"
-	err = en.Append(0xb4, 0x43, 0x61, 0x63, 0x68, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x55, 0x72, 0x6c, 0x53, 0x75, 0x66, 0x66, 0x69, 0x78, 0x65, 0x73)
-	if err != nil {
-		return
-	}
-	err = en.WriteArrayHeader(uint32(len(z.CacheFileUrlSuffixes)))
-	if err != nil {
-		err = msgp.WrapError(err, "CacheFileUrlSuffixes")
-		return
-	}
-	for za0001 := range z.CacheFileUrlSuffixes {
-		err = en.WriteString(z.CacheFileUrlSuffixes[za0001])
-		if err != nil {
-			err = msgp.WrapError(err, "CacheFileUrlSuffixes", za0001)
-			return
-		}
 	}
 	// write "CacheExpiration"
 	err = en.Append(0xaf, 0x43, 0x61, 0x63, 0x68, 0x65, 0x45, 0x78, 0x70, 0x69, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e)
@@ -110,18 +74,12 @@ func (z *CacheConfig) EncodeMsg(en *msgp.Writer) (err error) {
 }
 
 // MarshalMsg implements msgp.Marshaler
-func (z *CacheConfig) MarshalMsg(b []byte) (o []byte, err error) {
+func (z CacheConfig) MarshalMsg(b []byte) (o []byte, err error) {
 	o = msgp.Require(b, z.Msgsize())
-	// map header, size 3
+	// map header, size 2
 	// string "CacheEnabled"
-	o = append(o, 0x83, 0xac, 0x43, 0x61, 0x63, 0x68, 0x65, 0x45, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x64)
+	o = append(o, 0x82, 0xac, 0x43, 0x61, 0x63, 0x68, 0x65, 0x45, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x64)
 	o = msgp.AppendBool(o, z.CacheEnabled)
-	// string "CacheFileUrlSuffixes"
-	o = append(o, 0xb4, 0x43, 0x61, 0x63, 0x68, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x55, 0x72, 0x6c, 0x53, 0x75, 0x66, 0x66, 0x69, 0x78, 0x65, 0x73)
-	o = msgp.AppendArrayHeader(o, uint32(len(z.CacheFileUrlSuffixes)))
-	for za0001 := range z.CacheFileUrlSuffixes {
-		o = msgp.AppendString(o, z.CacheFileUrlSuffixes[za0001])
-	}
 	// string "CacheExpiration"
 	o = append(o, 0xaf, 0x43, 0x61, 0x63, 0x68, 0x65, 0x45, 0x78, 0x70, 0x69, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e)
 	o = msgp.AppendInt(o, z.CacheExpiration)
@@ -152,25 +110,6 @@ func (z *CacheConfig) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				err = msgp.WrapError(err, "CacheEnabled")
 				return
 			}
-		case "CacheFileUrlSuffixes":
-			var zb0002 uint32
-			zb0002, bts, err = msgp.ReadArrayHeaderBytes(bts)
-			if err != nil {
-				err = msgp.WrapError(err, "CacheFileUrlSuffixes")
-				return
-			}
-			if cap(z.CacheFileUrlSuffixes) >= int(zb0002) {
-				z.CacheFileUrlSuffixes = (z.CacheFileUrlSuffixes)[:zb0002]
-			} else {
-				z.CacheFileUrlSuffixes = make([]string, zb0002)
-			}
-			for za0001 := range z.CacheFileUrlSuffixes {
-				z.CacheFileUrlSuffixes[za0001], bts, err = msgp.ReadStringBytes(bts)
-				if err != nil {
-					err = msgp.WrapError(err, "CacheFileUrlSuffixes", za0001)
-					return
-				}
-			}
 		case "CacheExpiration":
 			z.CacheExpiration, bts, err = msgp.ReadIntBytes(bts)
 			if err != nil {
@@ -190,12 +129,8 @@ func (z *CacheConfig) UnmarshalMsg(bts []byte) (o []byte, err error) {
 }
 
 // Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
-func (z *CacheConfig) Msgsize() (s int) {
-	s = 1 + 13 + msgp.BoolSize + 21 + msgp.ArrayHeaderSize
-	for za0001 := range z.CacheFileUrlSuffixes {
-		s += msgp.StringPrefixSize + len(z.CacheFileUrlSuffixes[za0001])
-	}
-	s += 16 + msgp.IntSize
+func (z CacheConfig) Msgsize() (s int) {
+	s = 1 + 13 + msgp.BoolSize + 16 + msgp.IntSize
 	return
 }
 
@@ -938,10 +873,39 @@ func (z *VHostConfig) DecodeMsg(dc *msgp.Reader) (err error) {
 				if z.CacheControl == nil {
 					z.CacheControl = new(CacheConfig)
 				}
-				err = z.CacheControl.DecodeMsg(dc)
+				var zb0005 uint32
+				zb0005, err = dc.ReadMapHeader()
 				if err != nil {
 					err = msgp.WrapError(err, "CacheControl")
 					return
+				}
+				for zb0005 > 0 {
+					zb0005--
+					field, err = dc.ReadMapKeyPtr()
+					if err != nil {
+						err = msgp.WrapError(err, "CacheControl")
+						return
+					}
+					switch msgp.UnsafeString(field) {
+					case "CacheEnabled":
+						z.CacheControl.CacheEnabled, err = dc.ReadBool()
+						if err != nil {
+							err = msgp.WrapError(err, "CacheControl", "CacheEnabled")
+							return
+						}
+					case "CacheExpiration":
+						z.CacheControl.CacheExpiration, err = dc.ReadInt()
+						if err != nil {
+							err = msgp.WrapError(err, "CacheControl", "CacheExpiration")
+							return
+						}
+					default:
+						err = dc.Skip()
+						if err != nil {
+							err = msgp.WrapError(err, "CacheControl")
+							return
+						}
+					}
 				}
 			}
 		case "CompressionEnabled":
@@ -1117,9 +1081,25 @@ func (z *VHostConfig) EncodeMsg(en *msgp.Writer) (err error) {
 			return
 		}
 	} else {
-		err = z.CacheControl.EncodeMsg(en)
+		// map header, size 2
+		// write "CacheEnabled"
+		err = en.Append(0x82, 0xac, 0x43, 0x61, 0x63, 0x68, 0x65, 0x45, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x64)
 		if err != nil {
-			err = msgp.WrapError(err, "CacheControl")
+			return
+		}
+		err = en.WriteBool(z.CacheControl.CacheEnabled)
+		if err != nil {
+			err = msgp.WrapError(err, "CacheControl", "CacheEnabled")
+			return
+		}
+		// write "CacheExpiration"
+		err = en.Append(0xaf, 0x43, 0x61, 0x63, 0x68, 0x65, 0x45, 0x78, 0x70, 0x69, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e)
+		if err != nil {
+			return
+		}
+		err = en.WriteInt(z.CacheControl.CacheExpiration)
+		if err != nil {
+			err = msgp.WrapError(err, "CacheControl", "CacheExpiration")
 			return
 		}
 	}
@@ -1212,11 +1192,13 @@ func (z *VHostConfig) MarshalMsg(b []byte) (o []byte, err error) {
 	if z.CacheControl == nil {
 		o = msgp.AppendNil(o)
 	} else {
-		o, err = z.CacheControl.MarshalMsg(o)
-		if err != nil {
-			err = msgp.WrapError(err, "CacheControl")
-			return
-		}
+		// map header, size 2
+		// string "CacheEnabled"
+		o = append(o, 0x82, 0xac, 0x43, 0x61, 0x63, 0x68, 0x65, 0x45, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x64)
+		o = msgp.AppendBool(o, z.CacheControl.CacheEnabled)
+		// string "CacheExpiration"
+		o = append(o, 0xaf, 0x43, 0x61, 0x63, 0x68, 0x65, 0x45, 0x78, 0x70, 0x69, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e)
+		o = msgp.AppendInt(o, z.CacheControl.CacheExpiration)
 	}
 	// string "CompressionEnabled"
 	o = append(o, 0xb2, 0x43, 0x6f, 0x6d, 0x70, 0x72, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x45, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x64)
@@ -1403,10 +1385,39 @@ func (z *VHostConfig) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				if z.CacheControl == nil {
 					z.CacheControl = new(CacheConfig)
 				}
-				bts, err = z.CacheControl.UnmarshalMsg(bts)
+				var zb0005 uint32
+				zb0005, bts, err = msgp.ReadMapHeaderBytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "CacheControl")
 					return
+				}
+				for zb0005 > 0 {
+					zb0005--
+					field, bts, err = msgp.ReadMapKeyZC(bts)
+					if err != nil {
+						err = msgp.WrapError(err, "CacheControl")
+						return
+					}
+					switch msgp.UnsafeString(field) {
+					case "CacheEnabled":
+						z.CacheControl.CacheEnabled, bts, err = msgp.ReadBoolBytes(bts)
+						if err != nil {
+							err = msgp.WrapError(err, "CacheControl", "CacheEnabled")
+							return
+						}
+					case "CacheExpiration":
+						z.CacheControl.CacheExpiration, bts, err = msgp.ReadIntBytes(bts)
+						if err != nil {
+							err = msgp.WrapError(err, "CacheControl", "CacheExpiration")
+							return
+						}
+					default:
+						bts, err = msgp.Skip(bts)
+						if err != nil {
+							err = msgp.WrapError(err, "CacheControl")
+							return
+						}
+					}
 				}
 			}
 		case "CompressionEnabled":
@@ -1466,7 +1477,7 @@ func (z *VHostConfig) Msgsize() (s int) {
 	if z.CacheControl == nil {
 		s += msgp.NilSize
 	} else {
-		s += z.CacheControl.Msgsize()
+		s += 1 + 13 + msgp.BoolSize + 16 + msgp.IntSize
 	}
 	s += 19 + msgp.BoolSize + 23 + msgp.BoolSize
 	return
