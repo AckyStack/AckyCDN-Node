@@ -51,5 +51,6 @@ func NewRuleFilterMiddleware(ctx *fiber.Ctx) error {
 		return processFilterInterruption(it, ctx)
 	}
 
+	tx.Clean()
 	return ctx.Next()
 }
