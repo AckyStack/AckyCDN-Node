@@ -6,11 +6,18 @@ import (
 	"github.com/asdine/storm/v3"
 	"github.com/asdine/storm/v3/codec/msgpack"
 	"github.com/gofiber/storage/badger"
+	"github.com/gookit/goutil/fsutil"
 	"github.com/gookit/slog"
 	"sync"
 )
 
 func initStores() {
+
+	//check data directories
+	if !fsutil.PathExists("./data/") {
+		fsutil.Mkdir("./data/", fsutil.DefaultDirPerm)
+	}
+
 	//initialization databases
 	stormdb, err := storm.Open("./data/ackycdn.db", storm.Codec(msgpack.Codec), storm.Batch())
 	if err != nil {

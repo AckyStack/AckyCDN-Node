@@ -12,6 +12,7 @@ require (
 	github.com/gofiber/storage/badger v0.0.0-20211117053443-4a3096149ebb
 	github.com/gofiber/storage/memory v0.0.0-20211117053443-4a3096149ebb
 	github.com/golang-module/carbon/v2 v2.0.1
+	github.com/gookit/goutil v0.4.2
 	github.com/gookit/slog v0.1.5
 	github.com/jptosso/coraza-libinjection v0.0.0-20211223231304-7153f68c6821
 	github.com/jptosso/coraza-pcre v0.0.0-20211201204829-1bea0f044896
@@ -42,8 +43,8 @@ require (
 	github.com/google/flatbuffers v2.0.5+incompatible // indirect
 	github.com/google/go-cmp v0.5.6 // indirect
 	github.com/gookit/color v1.5.0 // indirect
-	github.com/gookit/goutil v0.4.2 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
+	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/nats-io/nats-server/v2 v2.6.6 // indirect
