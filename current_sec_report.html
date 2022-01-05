@@ -67,15 +67,26 @@
 </section>
 <script>
   var data = {
-    'Golang errors': {},
+    'Golang errors': {
+      '/Users/tony/IdeaProjects/ackycdn-node/app/initialization/app.go': [{
+        'line': 22,
+        'column': 3,
+        'error': 'unknown field CacheStore in struct literal'
+      }],
+      '/Users/tony/IdeaProjects/ackycdn-node/app/middlewares/cache.go': [{
+        'line': 29,
+        'column': 25,
+        'error': 'app.G.CacheStore undefined (type *"ackycdn-node/app/types".GlobalResource has no field or method CacheStore)'
+      }]
+    },
     'Issues': [{
       'severity': 'HIGH',
       'confidence': 'HIGH',
       'cwe': { 'id': '295', 'url': 'https://cwe.mitre.org/data/definitions/295.html' },
       'rule_id': 'G402',
-      'details': 'TLS Bad Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA',
+      'details': 'TLS Bad Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA',
       'file': '/Users/tony/IdeaProjects/ackycdn-node/app/ssl/tls.go',
-      'code': '24: \t\t\ttls.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,\n25: \t\t\ttls.TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,\n26: \t\t\ttls.TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,\n',
+      'code': '24: \t\t\ttls.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,\n25: \t\t\ttls.TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,\n26: \t\t\ttls.TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,\n',
       'line': '25',
       'column': '4',
       'nosec': false,
@@ -90,42 +101,6 @@
       'code': '45: \tgo func() {\n46: \t\tln, err := net.Listen(fiber.NetworkTCP, ":443")\n47: \t\tif err != nil {\n',
       'line': '46',
       'column': '14',
-      'nosec': false,
-      'suppressions': null
-    }, {
-      'severity': 'LOW',
-      'confidence': 'HIGH',
-      'cwe': { 'id': '703', 'url': 'https://cwe.mitre.org/data/definitions/703.html' },
-      'rule_id': 'G104',
-      'details': 'Errors unhandled.',
-      'file': '/Users/tony/IdeaProjects/ackycdn-node/pkg/rpool/pool.go',
-      'code': '75: \tfor r := range p.resources {\n76: \t\tr.Close()\n77: \t}\n',
-      'line': '76',
-      'column': '3',
-      'nosec': false,
-      'suppressions': null
-    }, {
-      'severity': 'LOW',
-      'confidence': 'HIGH',
-      'cwe': { 'id': '703', 'url': 'https://cwe.mitre.org/data/definitions/703.html' },
-      'rule_id': 'G104',
-      'details': 'Errors unhandled.',
-      'file': '/Users/tony/IdeaProjects/ackycdn-node/pkg/rpool/pool.go',
-      'code': '60: \t\tslog.Println("Release", "Closing")\n61: \t\tr.Close()\n62: \t}\n',
-      'line': '61',
-      'column': '3',
-      'nosec': false,
-      'suppressions': null
-    }, {
-      'severity': 'LOW',
-      'confidence': 'HIGH',
-      'cwe': { 'id': '703', 'url': 'https://cwe.mitre.org/data/definitions/703.html' },
-      'rule_id': 'G104',
-      'details': 'Errors unhandled.',
-      'file': '/Users/tony/IdeaProjects/ackycdn-node/pkg/rpool/pool.go',
-      'code': '52: \tif p.closed { //如果资源池已经关闭，销毁这个资源\n53: \t\tr.Close()\n54: \t\treturn\n',
-      'line': '53',
-      'column': '3',
       'nosec': false,
       'suppressions': null
     }, {
@@ -212,8 +187,56 @@
       'column': '2',
       'nosec': false,
       'suppressions': null
+    }, {
+      'severity': 'LOW',
+      'confidence': 'HIGH',
+      'cwe': { 'id': '703', 'url': 'https://cwe.mitre.org/data/definitions/703.html' },
+      'rule_id': 'G104',
+      'details': 'Errors unhandled.',
+      'file': '/Users/tony/IdeaProjects/ackycdn-node/app/cdncache/cache.go',
+      'code': '95: \t\tfor it.Rewind(); it.ValidForPrefix(prefix); it.Next() {\n96: \t\t\ttxn.Delete(it.Item().Key())\n97: \t\t}\n',
+      'line': '96',
+      'column': '4',
+      'nosec': false,
+      'suppressions': null
+    }, {
+      'severity': 'LOW',
+      'confidence': 'HIGH',
+      'cwe': { 'id': '703', 'url': 'https://cwe.mitre.org/data/definitions/703.html' },
+      'rule_id': 'G104',
+      'details': 'Errors unhandled.',
+      'file': '/Users/tony/IdeaProjects/ackycdn-node/app/cdncache/cache.go',
+      'code': '64: \t}\n65: \tcacheItem.UnmarshalMsg(data)\n66: \treturn true\n',
+      'line': '65',
+      'column': '2',
+      'nosec': false,
+      'suppressions': null
+    }, {
+      'severity': 'LOW',
+      'confidence': 'HIGH',
+      'cwe': { 'id': '703', 'url': 'https://cwe.mitre.org/data/definitions/703.html' },
+      'rule_id': 'G104',
+      'details': 'Errors unhandled.',
+      'file': '/Users/tony/IdeaProjects/ackycdn-node/ackycdn.go',
+      'code': '62: \tdefer app.G.CdnCache.Close()\n63: \tapp.G.FiberServer.Shutdown()\n64: }\n',
+      'line': '63',
+      'column': '2',
+      'nosec': false,
+      'suppressions': null
+    }, {
+      'severity': 'LOW',
+      'confidence': 'HIGH',
+      'cwe': { 'id': '703', 'url': 'https://cwe.mitre.org/data/definitions/703.html' },
+      'rule_id': 'G104',
+      'details': 'Errors unhandled.',
+      'file': '/Users/tony/IdeaProjects/ackycdn-node/ackycdn.go',
+      'code': '59: \tapp.G.MqConnection.Close()\n60: \tapp.G.PersistenceVhostDB.Close()\n61: \tdefer app.G.SessionStorage.Close()\n',
+      'line': '60',
+      'column': '2',
+      'nosec': false,
+      'suppressions': null
     }],
-    'Stats': { 'files': 54, 'lines': 5703, 'nosec': 0, 'found': 12 },
+    'Stats': { 'files': 54, 'lines': 5766, 'nosec': 0, 'found': 13 },
     'GosecVersion': 'dev'
   }
 </script>
