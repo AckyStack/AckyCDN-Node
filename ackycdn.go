@@ -56,9 +56,9 @@ func ListenAndServeAllNonBlock() {
 }
 
 func ShutdownAll() {
-	defer app.G.MqConnection.Close()
-	defer app.G.PersistenceVhostDB.Close()
-	defer app.G.CacheStore.Close()
-	defer app.G.FiberServer.Shutdown()
+	app.G.MqConnection.Close()
+	app.G.PersistenceVhostDB.Close()
 	defer app.G.SessionStorage.Close()
+	defer app.G.CdnCache.Close()
+	app.G.FiberServer.Shutdown()
 }

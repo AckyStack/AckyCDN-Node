@@ -2,6 +2,7 @@ package initialization
 
 import (
 	"ackycdn-node/app"
+	"ackycdn-node/app/cdncache"
 	"github.com/asdine/storm/v3"
 	"github.com/asdine/storm/v3/codec/msgpack"
 	"github.com/gofiber/storage/badger"
@@ -17,12 +18,7 @@ func initStores() {
 	}
 
 	//initialize db for web cache
-	cachedb := badger.New(badger.Config{
-		Database:  "./data/cache.db",
-		Reset:     false,
-		Logger:    nil,
-		UseLogger: false,
-	})
+	cachedb := cdncache.InitCdnCache()
 
 	//initialize db for session storage
 	sessiondb := badger.New(badger.Config{
@@ -38,7 +34,7 @@ func initStores() {
 		slog.Panic("failed to initialize vhost config map")
 	}
 
-	app.G.CacheStore = cachedb
+	app.G.CdnCache = cachedb
 	app.G.VhostConfigsMem = vcf
 	app.G.PersistenceVhostDB = stormdb
 	app.G.SessionStorage = sessiondb

@@ -13,7 +13,7 @@ func CacheUtils() *cacheUtils {
 }
 
 func (cu *cacheUtils) BuildCacheKey(ctx *fiber.Ctx) string {
-	return ftamd5.Md5Hash(append(append(ctx.Request().URI().Scheme(), ctx.Request().URI().Host()...), ctx.Request().URI().RequestURI()...))
+	return ftamd5.Md5Hash(append(append(ctx.Request().Host(), []byte("-")...), append(append(ctx.Request().URI().Scheme(), ctx.Request().URI().Host()...), ctx.Request().URI().RequestURI()...)...))
 }
 
 func (cu *cacheUtils) BuildCacheKeyByte(ctx *fiber.Ctx) []byte {

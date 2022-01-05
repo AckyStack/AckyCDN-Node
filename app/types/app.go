@@ -1,6 +1,7 @@
 package types
 
 import (
+	"ackycdn-node/app/cdncache"
 	"github.com/asdine/storm/v3"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/storage/badger"
@@ -20,7 +21,7 @@ type NodeConfig struct {
 type GlobalResource struct {
 	FiberServer *fiber.App
 
-	CacheStore *badger.Storage
+	CdnCache *cdncache.CdnCache
 
 	PersistenceVhostDB *storm.DB
 
