@@ -9,7 +9,4 @@ tasks:
       - 'go get -u ./...'
   sec:
     cmds:
-      - 'gosec -no-fail -fmt=html -out=current_sec_report.html -stdout -verbose=text ./...'
-  build_prod:
-    cmds:
-      - goreleaser release
+      - 'gosec -no-fail -stdout -verbose=text ./...' # -fmt=html -out=current_sec_report.html
