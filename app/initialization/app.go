@@ -17,9 +17,9 @@ import (
 
 func InitializeApplication() {
 	slog.Info("starting application...")
-	app.G = &types.GlobalResource{
+	app.G = &app.GlobalResource{
 		FiberServer:        nil,
-		CacheStore:         nil,
+		CdnCache:           nil,
 		PersistenceVhostDB: nil,
 		VhostConfigsMem:    nil,
 		MqConnection:       nil,

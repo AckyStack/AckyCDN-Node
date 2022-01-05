@@ -8,7 +8,6 @@ import (
 	"ackycdn-node/app/view"
 	"ackycdn-node/pkg/ackyutils"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gookit/slog"
 )
 
 func CacheMiddleware(ctx *fiber.Ctx) error {
@@ -25,22 +24,13 @@ func CacheMiddleware(ctx *fiber.Ctx) error {
 
 	//if cache is enabled
 	if !vhost.CacheControl.CacheEnabled {
-		cacheKey := ackyutils.CacheUtils().BuildCacheKey(ctx)
-		cacheData, _ := app.G.CacheStore.Get(cacheKey)
-
-		//cache doesn't exist
-		if cacheData == nil {
+		cacheKey := ackyutils.CacheUtils().BuildCacheKeyByte(ctx)
+		cacheItem := cdncache.AcquireCacheItem()
+		ok := app.G.CdnCache.GetCacheItem(cacheKey, cacheItem)
+		//maybe cache doesn't exist
+		if !ok {
 			return ctx.Next()
 		}
-
-		//cache exists
-		cacheItem := cdncache.AcquireCacheItem()
-		_, err := cacheItem.UnmarshalMsg(cacheData)
-		if err != nil {
-			slog.Error(err)
-			return view.Send10xxErrorPage(app.ErrSystemInternal, ctx)
-		}
-
 		//put cache to the response
 		ctx.Response().SetBodyRaw(cacheItem.Body)
 		ctx.Response().SetStatusCode(cacheItem.StatusCode)
@@ -48,13 +38,10 @@ func CacheMiddleware(ctx *fiber.Ctx) error {
 		if len(cacheItem.Encoding) > 0 {
 			ctx.Response().Header.SetBytesV(fiber.HeaderContentEncoding, cacheItem.Encoding)
 		}
-
 		//finish logging
 		logging.LogReqFinalize(ctx, true)
-
 		//release cache item
-		defer cdncache.ReleaseCacheItem(cacheItem)
-
+		cdncache.ReleaseCacheItem(cacheItem)
 		//return response
 		return nil
 	}

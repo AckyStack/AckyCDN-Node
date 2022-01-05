@@ -6,6 +6,7 @@ require (
 	github.com/Ferluci/fast-realip v1.0.0
 	github.com/anxuanzi/goutils v0.0.0-20211229221734-008bdf3781f9
 	github.com/asdine/storm/v3 v3.2.1
+	github.com/dgraph-io/badger/v3 v3.2103.2
 	github.com/dgrr/http2 v0.2.13
 	github.com/gofiber/fiber/v2 v2.24.0
 	github.com/gofiber/storage/badger v0.0.0-20211117053443-4a3096149ebb
@@ -29,11 +30,9 @@ require (
 	github.com/cespare/xxhash v1.1.0 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/cloudflare/ahocorasick v0.0.0-20210425175752-730270c3e184 // indirect
-	github.com/dgraph-io/badger/v3 v3.2103.2 // indirect
 	github.com/dgraph-io/ristretto v0.1.0 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/gijsbers/go-pcre v0.0.0-20161214203829-a84f3096ab3c // indirect
-	github.com/go-redis/redis/v8 v8.11.4 // indirect
 	github.com/gofiber/utils v0.1.2 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/glog v1.0.0 // indirect
@@ -41,9 +40,9 @@ require (
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/flatbuffers v2.0.5+incompatible // indirect
+	github.com/google/go-cmp v0.5.6 // indirect
 	github.com/gookit/color v1.5.0 // indirect
 	github.com/gookit/goutil v0.4.1 // indirect
-	github.com/gookit/gsr v0.0.4 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
