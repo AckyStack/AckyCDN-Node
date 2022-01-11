@@ -2,6 +2,7 @@ package proxy
 
 import (
 	"ackycdn-node/app"
+	"ackycdn-node/app/cdncache"
 	"ackycdn-node/app/logging"
 	"ackycdn-node/app/types"
 	"ackycdn-node/app/view"
@@ -11,6 +12,7 @@ import (
 	"github.com/golang-module/carbon/v2"
 	"github.com/gookit/slog"
 	"github.com/valyala/fasthttp"
+	"regexp"
 	"time"
 )
 
@@ -84,14 +86,30 @@ func ReverseProxyHandler(ctx *fiber.Ctx) error {
 	}
 	proxyReqEndTime := carbon.Now().TimestampWithMillisecond()
 	logging.LogReqUpstream(ctx, ftaconv.B2S(ctx.Request().URI().FullURI()), proxyReqStartTime, proxyReqEndTime)
-
+	//cache
+	if vhost.CacheControl.CacheEnabled {
+		ruleMatched, _ := regexp.Match("\\.?(eot|otf|ttf|woff|woff2|html|htm|css|js|jsx|less|scss|ppt|odp|doc|docx|ebook|log|md|msg|odt|org|pages|pdf|rtf|rst|tex|txt|wpd|wps|mobi|epub|azw1|azw3|azw4|azw6|azw|cbr|cbz|aac|aiff|ape|au|flac|gsm|it|m3u|m4a|mid|mod|mp3|mpa|pls|ra|s3m|sid|wav|wma|xm|3g2|3gp|aaf|asf|avchd|avi|drc|flv|m2v|m4p|m4v|mkv|mng|mov|mp2|mp4|mpe|mpeg|mpg|mpv|mxf|nsv|ogg|ogv|ogm|qt|rm|rmvb|roq|srt|svi|vob|webm|wmv|yuv|3dm|3ds|max|bmp|dds|gif|jpg|jpeg|png|psd|xcf|tga|thm|tif|tiff|ai|eps|ps|svg|dwg|dxf|gpx|kml|kmz|webp|ods|xls|xlsx|csv|ics|vcf)$", ctx.Request().URI().FullURI())
+		if ruleMatched {
+			cacheItem := cdncache.AcquireCacheItem()
+			cacheItem.CacheKey = ackyutils.CacheUtils().BuildCacheKeyByte(ctx)
+			cacheItem.StatusCode = proxyResponse.StatusCode()
+			cacheItem.ContentType = ftaconv.CopyBytes(proxyResponse.Header.ContentType())
+			cacheItem.Encoding = ftaconv.CopyBytes(proxyResponse.Header.Peek(fiber.HeaderContentEncoding))
+			cacheItem.Body = ftaconv.CopyBytes(proxyResponse.Body())
+			exp := time.Minute * 30
+			if vhost.CacheControl.CacheExpiration > 0 {
+				d := ftaconv.ToString(vhost.CacheControl.CacheExpiration) + "s"
+				exp, _ = time.ParseDuration(d)
+			}
+			app.G.CdnCache.SaveCacheItem(cacheItem, exp)
+			cdncache.ReleaseCacheItem(cacheItem)
+		}
+	}
 	ctx.Response().Reset()
 	proxyResponse.CopyTo(ctx.Response())
-	//cache
-
 	logging.LogReqFinalize(ctx, false)
-	defer releaseClient(client)
-	defer fasthttp.ReleaseResponse(proxyResponse)
+	releaseClient(client)
+	fasthttp.ReleaseResponse(proxyResponse)
 	return nil
 }
 

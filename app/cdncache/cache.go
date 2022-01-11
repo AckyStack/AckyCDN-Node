@@ -66,12 +66,12 @@ func (c *CdnCache) GetCacheItem(cacheKey []byte, cacheItem *types.CdnCacheItem) 
 	return true
 }
 
-func (c *CdnCache) SaveCacheItem(cacheKey []byte, cacheItem *types.CdnCacheItem, exp time.Duration) (ok bool) {
-	if len(cacheKey) <= 0 || cacheItem == nil {
+func (c *CdnCache) SaveCacheItem(cacheItem *types.CdnCacheItem, exp time.Duration) (ok bool) {
+	if len(cacheItem.CacheKey) <= 0 || cacheItem == nil {
 		return false
 	}
 	data, _ := cacheItem.MarshalMsg(nil)
-	entry := badger.NewEntry(cacheKey, data)
+	entry := badger.NewEntry(cacheItem.CacheKey, data)
 	if exp != 0 {
 		entry.WithTTL(exp)
 	}
