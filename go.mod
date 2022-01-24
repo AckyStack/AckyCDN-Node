@@ -7,12 +7,12 @@ require (
 	github.com/anxuanzi/goutils v0.0.0-20211229221734-008bdf3781f9
 	github.com/asdine/storm/v3 v3.2.1
 	github.com/dgraph-io/badger/v3 v3.2103.2
-	github.com/dgrr/http2 v0.2.13
-	github.com/gofiber/fiber/v2 v2.24.0
-	github.com/gofiber/storage/badger v0.0.0-20220110080530-864b9a01e0b4
-	github.com/gofiber/storage/memory v0.0.0-20220110080530-864b9a01e0b4
+	github.com/dgrr/http2 v0.3.3
+	github.com/gofiber/fiber/v2 v2.25.0
+	github.com/gofiber/storage/badger v0.0.0-20220121081204-5048d2480c82
+	github.com/gofiber/storage/memory v0.0.0-20220121081204-5048d2480c82
 	github.com/golang-module/carbon/v2 v2.0.1
-	github.com/gookit/goutil v0.4.2
+	github.com/gookit/goutil v0.4.4
 	github.com/gookit/slog v0.1.5
 	github.com/jptosso/coraza-libinjection v0.0.0-20220109185528-78d7edbd2d9f
 	github.com/jptosso/coraza-pcre v0.0.0-20211201204829-1bea0f044896
@@ -63,9 +63,9 @@ require (
 	go.uber.org/goleak v1.1.12 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
 	go.uber.org/zap v1.20.0 // indirect
-	golang.org/x/crypto v0.0.0-20211215153901-e495a2d5b3d3 // indirect
-	golang.org/x/net v0.0.0-20220111093109-d55c255bac03 // indirect
-	golang.org/x/sys v0.0.0-20220111092808-5a964db01320 // indirect
+	golang.org/x/crypto v0.0.0-20220112180741-5e0467b6c7ce // indirect
+	golang.org/x/net v0.0.0-20220121210141-e204ce36a2ba // indirect
+	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 )

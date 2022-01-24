@@ -30,10 +30,6 @@ func main() {
 	})
 }
 
-func application() {
-
-}
-
 func ListenAndServeAllNonBlock() {
 	go func() {
 		err := app.G.FiberServer.Listen(":80")
@@ -47,7 +43,7 @@ func ListenAndServeAllNonBlock() {
 		if err != nil {
 			slog.Panic(err)
 		}
-		http2.ConfigureServer(app.G.FiberServer.Server())
+		http2.ConfigureServer(app.G.FiberServer.Server(), http2.ServerConfig{})
 		err = app.G.FiberServer.Listener(tls.NewListener(ln, ssl.TlsServerConfig()))
 		if err != nil {
 			slog.Panic(err)
