@@ -12,7 +12,7 @@ require (
 	github.com/gofiber/storage/badger v0.0.0-20220121081204-5048d2480c82
 	github.com/gofiber/storage/memory v0.0.0-20220121081204-5048d2480c82
 	github.com/golang-module/carbon/v2 v2.0.1
-	github.com/gookit/goutil v0.4.4
+	github.com/gookit/goutil v0.6.0
 	github.com/gookit/slog v0.1.5
 	github.com/jptosso/coraza-libinjection v0.0.0-20220109185528-78d7edbd2d9f
 	github.com/jptosso/coraza-pcre v0.0.0-20211201204829-1bea0f044896
@@ -42,9 +42,8 @@ require (
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/flatbuffers v2.0.5+incompatible // indirect
 	github.com/google/go-cmp v0.5.6 // indirect
-	github.com/gookit/color v1.5.0 // indirect
+	github.com/gookit/color v1.5.2 // indirect
 	github.com/klauspost/compress v1.14.1 // indirect
-	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/nats-io/nats-server/v2 v2.6.6 // indirect
@@ -63,9 +62,10 @@ require (
 	go.uber.org/goleak v1.1.12 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
 	go.uber.org/zap v1.20.0 // indirect
-	golang.org/x/crypto v0.0.0-20220112180741-5e0467b6c7ce // indirect
+	golang.org/x/crypto v0.0.0-20220829220503-c86fa9a7ed90 // indirect
 	golang.org/x/net v0.0.0-20220121210141-e204ce36a2ba // indirect
-	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9 // indirect
+	golang.org/x/sys v0.0.0-20220829200755-d48e67d00261 // indirect
+	golang.org/x/text v0.4.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 )
